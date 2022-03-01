@@ -3,7 +3,6 @@ function computerPlay() {
     const r = Math.floor(Math.random() * 3);
     return x[r];
 }
-const computerAct = computerPlay();
 
 let playerScore = 0;
 let computerScore = 0;
@@ -32,7 +31,7 @@ function game() {
     let gameEndAlert;
     playerScore = 0;
     computerScore = 0;
-    
+
     for (let i = 0; i < 5; i++) {
         let playerAct = prompt('Yo do something');
         playRound(playerAct, computerPlay());
