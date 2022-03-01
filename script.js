@@ -30,12 +30,17 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
     let gameEndAlert;
+    playerScore = 0;
+    computerScore = 0;
+    
     for (let i = 0; i < 5; i++) {
         let playerAct = prompt('Yo do something');
-        playRound(playerAct, computerAct);
+        playRound(playerAct, computerPlay());
     }
 
-    if (playerScore > computerScore) {
+    if (playerScore === computerScore) {
+        gameEndAlert = `It's a draw! Score: ${playerScore}:${computerScore}`;
+    } else if (playerScore > computerScore) {
         gameEndAlert = `Player is the winner! Score: ${playerScore}:${computerScore}`;
     } else if (playerScore < computerScore) {
         gameEndAlert = `Computer is the winner! Score: ${playerScore}:${computerScore}`;
