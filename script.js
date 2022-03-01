@@ -3,39 +3,44 @@ function computerPlay() {
     const r = Math.floor(Math.random() * 3);
     return x[r];
 }
+const computerAct = computerPlay();
+
+let playerScore = 0;
+let computerScore = 0;
 
 function playRound(playerSelection, computerSelection) {
-    const playerWinAlert = 'Player Wins!';
-    const computerWinAlert = 'Computer Wins!';
+    let winAlert;
 
     if (playerSelection === computerSelection) {
-        return 'It\s a Draw!';
+        winAlert = 'It\s a Draw!';
     } else if (
         (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
         (playerSelection === 'Paper' && computerSelection === 'Rock') ||
         (playerSelection === 'Scissors' && computerSelection === 'Paper')) {
-            return playerWinAlert;
+            playerScore ++;
+            winAlert = 'Player Wins!';
     } else {
-        return computerWinAlert;
+        computerScore ++;
+        winAlert = 'Computer Wins!';
     }
-}
 
+    console.log(`${winAlert}`);
+    console.log(`${playerScore}:${computerScore}`);
+}
 
 function game() {
-    // while gameend !true
-    // prompt asking
-    // put result in playerselection var and call playround
-    // alrt score
-
-    // end when one of them is five
+    let gameEndAlert;
     for (let i = 0; i < 5; i++) {
-
+        let playerAct = prompt('Yo do something');
+        playRound(playerAct, computerAct);
     }
+
+    if (playerScore > computerScore) {
+        gameEndAlert = `Player is the winner! Score: ${playerScore}:${computerScore}`;
+    } else if (playerScore < computerScore) {
+        gameEndAlert = `Computer is the winner! Score: ${playerScore}:${computerScore}`;
+    }
+
+    console.log(gameEndAlert);
 }
-
-
-// run the game
-const playerSelection = "Rock";
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
 
