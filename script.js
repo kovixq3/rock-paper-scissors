@@ -4,47 +4,46 @@ function computerPlay() {
     return x[r];
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
-function playRound(playerSelection, computerSelection) {
-    let winAlert;
-
+function play(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        winAlert = 'It\s a Draw!';
+        displayResult.textContent = `It's a Draw!`;
     } else if (
         (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
         (playerSelection === 'Paper' && computerSelection === 'Rock') ||
         (playerSelection === 'Scissors' && computerSelection === 'Paper')) {
             playerScore ++;
-            winAlert = 'Player Wins!';
+            displayResult.textContent = `Player Wins!`;
     } else {
         computerScore ++;
-        winAlert = 'Computer Wins!';
+        displayResult.textContent = `Computer Wins!`;
     }
 
-    console.log(`${winAlert}`);
-    console.log(`${playerScore}:${computerScore}`);
+    displayPS.textContent = playerScore;
+    displayCS.textContent = computerScore;
+
+    if (playerScore == 5 || computerScore == 5) gameEnd();
 }
 
-function game() {
-    let gameEndAlert;
+function gameEnd() {
+    if (playerScore > computerScore) {
+        displayResult.textContent = `Game over, Player is the winner!`;
+    } else if (playerScore < computerScore) {
+        displayResult.textContent = `Game over, Computer is the winner!`;
+    }
     playerScore = 0;
     computerScore = 0;
-
-    for (let i = 0; i < 5; i++) {
-        let playerAct = prompt('Yo do something');
-        playRound(playerAct, computerPlay());
-    }
-
-    if (playerScore === computerScore) {
-        gameEndAlert = `It's a draw! Score: ${playerScore}:${computerScore}`;
-    } else if (playerScore > computerScore) {
-        gameEndAlert = `Player is the winner! Score: ${playerScore}:${computerScore}`;
-    } else if (playerScore < computerScore) {
-        gameEndAlert = `Computer is the winner! Score: ${playerScore}:${computerScore}`;
-    }
-
-    console.log(gameEndAlert);
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
+const btn = document.querySelectorAll('button');
+const displayPS = document.querySelector('#player-score');
+const displayCS = document.querySelector('#computer-score');
+const displayResult = document.querySelector('#result');
+
+btn.forEach(e => {
+    e.addEventListener('click', () => {
+        play(e.textContent, computerPlay());
+    });
+});
